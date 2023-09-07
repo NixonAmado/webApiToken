@@ -12,6 +12,5 @@ namespace API.Profiles;
         public MappingProfiles()
         {
         CreateMap<User,UserDto>().ReverseMap();
-        CreateMap<UserDto,User>().ReverseMap();
         }
 }

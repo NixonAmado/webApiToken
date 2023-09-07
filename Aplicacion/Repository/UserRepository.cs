@@ -19,7 +19,7 @@ namespace Aplicacion.Repository
             _context = tokenApiContext;
         }
 
-        public async Task<User> GetUserByNameAsync(string userName)
+        public async Task<User> GetByUsernameAsync(string userName)
         {
             return await _context.Users
                         .Include(u => u.Rols)
