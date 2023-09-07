@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Dominio.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -19,8 +20,15 @@ public class TokenApiContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
+        // modelBuilder
+        // .Entity<UserRol>(builder => {
+        //   builder.HasNoKey();
+        // });
 
+
+
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
     }
 }

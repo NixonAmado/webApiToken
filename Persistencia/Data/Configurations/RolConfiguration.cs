@@ -18,5 +18,29 @@ public class RolConfiguration : IEntityTypeConfiguration<Rol>
             .HasColumnName("RolNames")
             .IsRequired()
             .HasMaxLength(30);
-        }
+
+             builder
+        .HasMany(p => p.Users)
+        .WithMany(p => p.Rols)
+        .UsingEntity<UserRol>
+        (    
+            j => j 
+            .HasOne(p => p.User)
+            .WithMany(p => p.UsersRols)
+            .HasForeignKey( p => p.IdUserFk),
+        
+            j => j 
+            .HasOne(p => p.Rol)
+            .WithMany(p => p.UsersRols)
+            .HasForeignKey( p => p.IdRolFk),
+            j =>
+            {
+                j.HasKey(t => new { t.IdUserFk, t.IdRolFk});
+            }
+
+        );
     }
+}
+
+
+    

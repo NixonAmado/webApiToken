@@ -7,7 +7,7 @@ namespace Persistencia.Data.Configurations;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>
 {
-    public void Configure(EntityTypeBuilder <User> builder)
+    public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.ToTable("User");
         builder.Property(p => p.UserName)
@@ -25,24 +25,5 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         .HasMaxLength(255);
         
 
-        builder
-        .HasMany(p => p.Rols)
-        .WithMany(p => p.Users)
-        .UsingEntity<UserRol>(
-            
-            j => j 
-            .HasOne(p => p.Rol)
-            .WithMany(p => p.UsersRols)
-            .HasForeignKey( p => p.IdRolFk),
-            j => j 
-            .HasOne(p => p.User)
-            .WithMany(p => p.UsersRols)
-            .HasForeignKey( p => p.IdUserFk),
-        
-        
-            j => j.HasKey(t => new { t.IdUserFk, t.IdRolFk}));
-        
     }
-
-
 }
