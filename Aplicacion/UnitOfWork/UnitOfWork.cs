@@ -12,6 +12,8 @@ namespace Aplicacion.Repository
         private readonly TokenApiContext _context;
         private RolRepository _rols;
         private UserRepository _users;
+        private RefreshTokenRepository _refreshToken;
+
 
         public UnitOfWork(TokenApiContext context)
         {
@@ -38,6 +40,17 @@ namespace Aplicacion.Repository
                     _users = new UserRepository(_context);
                 }
                 return _users;
+            }
+        }
+        public IRefreshToken RefreshTokens
+        {
+            get
+            {
+                if(_refreshToken == null)
+                {
+                    _refreshToken = new RefreshTokenRepository(_context);
+                }
+                return _refreshToken;
             }
         }
 

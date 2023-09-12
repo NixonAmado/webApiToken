@@ -174,6 +174,25 @@ namespace API.Services
             return JwtSecurityToken;
             }
 
+            public async Task<string> GenerateRefreshTokenAsync(int userId)
+            {
+                var refreshToken = new RefreshToken
+                {
+                    IdUserFk = userId,
+                    Token = GenerateUniqueToken(), // Lógica para generar un token único
+                    ExpirationDate = DateTime.UtcNow.AddDays(30) // Fecha de vencimiento
+                };
+            
+                // Asociar el Refresh Token con el usuario
+                var user = await _unitOfWork.Users.GetByIdAsync(userId);
+                user.RefreshTokens.Add(refreshToken);
+            
+                // Guardar cambios en la base de datos
+                await _unitOfWork.SaveAsync();
+            
+                return refreshToken.Token;
+            }
+
         }
     }
 
